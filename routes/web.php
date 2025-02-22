@@ -9,16 +9,20 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClientController;
-
+use App\Http\Controllers\SearchController;
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'Index')->name('Home');
 
 });
 Route::controller(ClientController::class)->group(function(){
+    
+    Route::get('/category/{id}/filter','filter')->name('category.filter');
     Route::get('/category/{id}/{slug}', 'CategoryPage')->name('category');
     Route::get('/product-details/{id}/{slug}', 'SingleProduct')->name('singleproduct');
     Route::get('/new-release', 'NewRelease')->name('newrelease');
+
+    
 
 
 });
@@ -37,6 +41,9 @@ Route::middleware(['auth','role:user'])->group(function(){
         Route::get('/todays-deal', 'TodaysDeal')->name('todaysdeal');
         Route::get('/custom-service', 'CustomerService')->name('customerservice');
         Route::get('/remove-cart-item/{id}', 'RemoveCartItem')->name('removeitem');
+        Route::get('/your-profile', 'Profile')->name('profile');
+
+        
     });
 });
 
@@ -89,5 +96,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+Route::get('/search/filter', [ProductController::class, 'filter'])->name('search.filter');
+
 
 require __DIR__.'/auth.php';

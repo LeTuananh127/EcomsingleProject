@@ -63,23 +63,16 @@
          </div>
          <!-- header top section start -->
          <!-- logo section start -->
-         <div class="logo_section">
-            <div class="container">
-               <div class="row">
-                  <div class="col-sm-12">
-                     <div class="logo"><a href="index.html"><img src="{{ asset('home/images/logo.png') }}"></a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
+         
          <!-- logo section end -->
          <!-- header section start -->
          <div class="header_section">
             <div class="container">
+               <h1 class="text-center text-light" style="margin-top:50px; font-weight:bold; color:white "><a style="color:white" href="{{ route('Home') }}">TuanAnhMobile</a></h1>
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
+                     <a href="{{ route('Home') }}">Home</a>
 
                      @foreach ($categories as $category)
                         <a href="{{ route('category', [$category->id, $category->slug]) }}">{{ $category->category_name }}
@@ -87,12 +80,13 @@
                      @endforeach
 
                   </div>
-                  <span class="toggle_icon" onclick="openNav()"><img src="{{ asset('home/images/toggle-icon.png') }}"></span>
                   <div class="dropdown">
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('Home') }}">All Product</a>
                         @foreach ( $categories as $category )
+                        
                         <a class="dropdown-item" href="{{ route('category', [$category->id, $category->slug]) }}">{{ $category-> category_name }}</a>
                            
                         @endforeach
@@ -101,38 +95,47 @@
                   </div>
                   <div class="main">
                      <!-- Another variation with a button -->
-                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
-                        <div class="input-group-append">
-                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
-                           <i class="fa fa-search"></i>
-                           </button>
+                     <form action="{{ route('search') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="query" class="form-control" placeholder="Search for products..." required>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
-                     </div>
+                    </form>
+                    
                   </div>
                   <div class="header_box">
-                     <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="{{ asset('home/images/flag-uk.png') }}" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                           <a href="#" class="dropdown-item">
-                           <img src="{{ asset('home/images/flag-france.png') }}" class="mr-2" alt="flag">
-                           French
-                           </a>
-                        </div>
-                     </div>
+                     
                      <div class="login_menu">
                         <ul>
-                           <li><a href="#">
+                           <li><a href="{{ route ('addtocart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                               <span class="padding_10">Cart</span></a>
                            </li>
-                           <li><a href="#">
-                              <i class="fa fa-user" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
-                           </li>
-                        </ul>
+                           <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  {{ Auth::check() ? Auth::user()->name : 'Guest' }}
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  @if(Auth::check())
+                                      <a class="dropdown-item" href="{{ route('profile.edit') }}">Your Profile</a>
+                                      <a class="dropdown-item" href="{{ route('userprofile') }}">Your Orders</a>
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                          Logout
+                                      </a>
+                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                          @csrf
+                                      </form>
+                                  @else
+                                      <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                      <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                                  @endif
+                              </div>
+                          </div>  
                      </div>
                   </div>
                </div>

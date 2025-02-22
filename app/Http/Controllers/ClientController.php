@@ -13,6 +13,7 @@ use App\Models\Order;
 
 
 
+
 class ClientController extends Controller
 {
     public function CategoryPage($id){
@@ -122,13 +123,47 @@ class ClientController extends Controller
     public function NewRelease(){
         return view('usertemplate.newrelease');
     }
+    public function Profile() {
+        return redirect()->route('profile.edit');
+    }
+    
+
     public function TodaysDeal(){
         return view('usertemplate.todaysdeal');
     }
     public function CustomerService(){
         return view('usertemplate.customerservice');
     }
-    
+    public function filter(Request $request, $id)
+    {
+    $category = Category::findOrFail($id);
+    $query = Product::where('product_category_id', $id);
+
+    // Lọc sản phẩm theo mức giá
+    if ($request->has('price_range')) {
+        $priceRange = $request->input('price_range');
+
+        switch ($priceRange) {
+            case '0-50':
+                $query->whereBetween('price', [0, 50]);
+                break;
+            case '50-100':
+                $query->whereBetween('price', [50, 100]);
+                break;
+            case '100-200':
+                $query->whereBetween('price', [100, 200]);
+                break;
+            case '200+':
+                $query->where('price', '>', 200);
+                break;
+        }
+    }
+
+    $products = $query->get();
+    $category->product_count = $products->count();
+
+    return view('usertemplate.category', compact('category', 'products'));
+    }
 
 
 }
