@@ -85,9 +85,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
 
     });
-    Route::controller(OrderController::class)->group(function(){
+    Route::controller(OrderController::class)->group(function () {
         Route::get('/admin/pending-order', 'Index')->name('pendingorders');
+        Route::get('/admin/confirm/{id}', 'confirmOrder')->name('order.confirm');
+        Route::get('/admin/cancel/{id}', 'cancelOrder')->name('order.cancel');
+        Route::get('/admin/confirmed', 'confirmedOrders')->name('orders.confirmed');
+        Route::get('/admin/canceled', 'canceledOrders')->name('orders.canceled');
     });
+    
+    
 });
 
 

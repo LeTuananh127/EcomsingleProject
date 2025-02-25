@@ -8,7 +8,7 @@ Pending Orders - Single Ecom
         <div class="card-title">
             <h2 class="text-center">Pending Orders</h2>
             <div class="card-body">
-                    <table>
+                    <table class="table">
                         <tr>
                             <th>User Id</th>
                             <th>Shipping Information</th>
@@ -43,9 +43,12 @@ Pending Orders - Single Ecom
                                     {{ $order->status }}
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-success">Confirm</a>
-                                    <a href="" class="btn btn-danger">Cancel</a>
+                                    <a href="{{ route('order.confirm', ['id' => $order->id]) }}" class="btn btn-success">Confirm</a>
+                                    <a href="{{ route('order.cancel', ['id' => $order->id]) }}" class="btn btn-danger">Cancel</a>
                                 </td>
+                                
+                                
+                                
                             </tr>
 
                         @endforeach
