@@ -122,6 +122,14 @@ p {
     line-height: 24px;
 }
 
+p.lead {
+    white-space: pre-line;
+}
+
+p.lead span::before {
+    content: "• ";
+}
+
 a {
     color: #222222;
     text-decoration: none;

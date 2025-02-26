@@ -106,5 +106,6 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/search/filter', [ProductController::class, 'filter'])->name('search.filter');
 
+Route::get('/admin/allproducts', [ProductController::class, 'allProducts'])->name('allproducts');
 
 require __DIR__.'/auth.php';

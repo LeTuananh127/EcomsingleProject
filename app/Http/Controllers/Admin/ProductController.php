@@ -136,6 +136,20 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('allproduct')->with('message', 'Product Deleted Successfully!');
     }
+    public function allProducts(Request $request) {
+        $sort = $request->query('sort'); // Get sort parameter from URL
+    
+        if ($sort == 'asc') {
+            $products = Product::orderBy('price', 'asc')->get();
+        } elseif ($sort == 'desc') {
+            $products = Product::orderBy('price', 'desc')->get();
+        } else {
+            $products = Product::all(); // Default
+        }
+    
+        return view('admin.allproduct', compact('products'));
+    }
+    
 
 
 

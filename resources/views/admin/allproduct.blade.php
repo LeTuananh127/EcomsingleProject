@@ -19,7 +19,12 @@ All Product - Single Ecom
             <th>ID</th>
             <th>Product Name</th>
             <th>Img</th>
-            <th>Price</th>
+            <th>
+              Price 
+              <a href="{{ route('allproducts', ['sort' => 'asc']) }}">🔼</a>
+              <a href="{{ route('allproducts', ['sort' => 'desc']) }}">🔽</a>
+              <a href="{{ route('allproducts') }}">🔄</a>
+          </th>
             <th>Action</th>
           </tr>
         </thead>

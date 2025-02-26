@@ -15,7 +15,13 @@
                 <p class="price_text text-left">Price <span style="color: #262626;">$ {{ $product->price }}</span></p>
             </div>
             <div class="my-3 product-details">
-                <p class="lead">{{ $product->product_long_description }}</p>
+                <ul style="margin-left: 20px;">
+                    @foreach(explode("\n", $product->product_long_description) as $line)
+                        @if(trim($line) != "")
+                            <li style="list-style: disc;" >{{ $line }}</li>
+                        @endif
+                    @endforeach
+                </ul>
                <ul class="p-2 bg-light my-2">
                     <li>Category - {{ $product->product_category_name}}</li>
                     <li>Sub Category - {{ $product->product_subcategory_name }}</li>
@@ -35,6 +41,7 @@
                     <br>
                     <input type="submit" class="btn btn-primary" value="Add to Cart">
                 </form>
+            </div>
                 
                 
         </div>
@@ -77,4 +84,8 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+</div>
+</div>
 @endsection

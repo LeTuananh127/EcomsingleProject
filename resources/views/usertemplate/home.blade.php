@@ -10,7 +10,7 @@
                         <div class="fashion_section_2">
                             <div class="row">
                                 @foreach ($allproducts as $product)
-                                    <div class="col-lg-4 col-sm-4">
+                                    <div class="col-lg-4 col-sm-4" >
                                         <div class="box_main">
                                             <h4 class="shirt_text">{{ $product->product_name }}</h4>
                                             <p class="price_text">Price <span style="color: #262626;">${{ $product->price }}</span></p>
